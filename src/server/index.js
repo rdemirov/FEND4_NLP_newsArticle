@@ -35,7 +35,10 @@ app.post("/analyzeSentiment", function(req, resp) {
     function(err, res) {
       console.log(res);
       if (!err) resp.send(res);
-      else resp.send("Error analyzing sentiment.Please try again.");
+      else
+        resp.send({
+          error: "Error analyzing sentiment.Please try again."
+        });
     }
   );
 });

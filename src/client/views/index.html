@@ -16,14 +16,13 @@
         <main>
             <section>
                 <form onsubmit="Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
+                    <input id="url" type="text" name="input" value="" placeholder="URL">
                     <input type="submit" class="submitButton" value="submit" onclick="Client.handleSubmit(event)" onsubmit="Client.handleSubmit(event)">
                 </form>
             <section>
 
             <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
+<div id="sentimentResults" />
             </section>
         </main>
 

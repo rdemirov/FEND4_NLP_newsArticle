@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Test</title>
+        <title>Sentiment Analysis</title>
     </head>
 
     <body>
@@ -22,13 +22,19 @@
             <section>
 
             <section>
-<div id="sentimentResults" />
+            <div id="sentimentResults" />
             </section>
         </main>
 
         <footer class="footer">
             <p>Udacity Front End nanodegree project 4</p>
         </footer>
-
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script>
     </body>
 </html>

@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
 
 module.exports = {
@@ -29,6 +30,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       app_port: dotenv.parsed.APP_PORT || 8000
-    })
+    }),
+    new WorkboxPlugin.GenerateSW()
   ]
 };

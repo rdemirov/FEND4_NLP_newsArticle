@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
 
 module.exports = {
@@ -10,6 +12,9 @@ module.exports = {
     library: "Client"
   },
   mode: "production",
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+  },
   module: {
     rules: [
       {

@@ -1,4 +1,4 @@
-import { checkForName } from "./nameChecker";
+import { checkUrl } from "./helpers";
 
 const mockResp = {
   polarity: "positive",
@@ -12,16 +12,14 @@ const mockResp = {
 function handleSubmit(event) {
   event.preventDefault();
   // check what text was put into the form field
-  let formText = document.getElementById("url").value;
-  //checkForName(formText);
-  console.log(formText);
-  console.log("::: URL submitted for analysis :::");
+  let formUrl = document.getElementById("url").value;
+  const urlValid = checkUrl(formUrl);
   //   fetch(`http://localhost:${app_port}/analyzeSentiment`, {
   //     method: "POST",
   //     headers: {
   //       "Content-Type": "application/json"
   //     },
-  //     body: JSON.stringify({ url: formText })
+  //     body: JSON.stringify({ url: formUrl })
   //   })
   //     .then(res => res.json())
   //     .then(function(res) {
@@ -32,34 +30,45 @@ function handleSubmit(event) {
   //       }
   //     });
   const resultsDiv = document.getElementById("sentimentResults");
-  const responseProps = Object.keys(mockResp);
-  for (let index = 0; index < responseProps.length; index++) {
-    if (responseProps[index] !== "text") {
-      const elementLabel = document.createElement("div");
-      const elementValue = document.createElement("div");
-      elementLabel.className = "dataLabel";
-      let splitString = responseProps[index]
-        .split("_")
-        .map(item => item.charAt(0).toUpperCase() + item.slice(1));
-      const fieldLabel = splitString.join(" ");
-      elementLabel.textContent = fieldLabel;
-      elementValue.classList.add("dataCell");
-      elementValue.setAttribute("id", responseProps[index]);
-      if (responseProps[index] === "polarity") {
-        if (mockResp["polarity"] === "positive")
-          elementValue.classList.add("colorGreen");
-        else elementValue.classList.add("colorRed");
-      }
-      elementValue.textContent = mockResp[responseProps[index]];
-      resultsDiv.appendChild(elementLabel);
-      resultsDiv.appendChild(elementValue);
-    }
+  while (resultsDiv.firstChild) {
+    resultsDiv.removeChild(resultsDiv.firstChild);
   }
-  const resultsParagraph = document.createElement("p");
-  resultsParagraph.setAttribute("id", "resultsText");
-  resultsParagraph.className = "dataCell_text";
-  resultsParagraph.textContent = mockResp["text"];
-  resultsDiv.appendChild(resultsParagraph);
+  console.log(urlValid);
+  if (urlValid) {
+    const responseProps = Object.keys(mockResp);
+    for (let index = 0; index < responseProps.length; index++) {
+      if (responseProps[index] !== "text") {
+        const elementLabel = document.createElement("div");
+        const elementValue = document.createElement("div");
+        elementLabel.className = "dataLabel";
+        let splitString = responseProps[index]
+          .split("_")
+          .map(item => item.charAt(0).toUpperCase() + item.slice(1));
+        const fieldLabel = splitString.join(" ");
+        elementLabel.textContent = fieldLabel;
+        elementValue.classList.add("dataCell");
+        elementValue.setAttribute("id", responseProps[index]);
+        if (responseProps[index] === "polarity") {
+          if (mockResp["polarity"] === "positive")
+            elementValue.classList.add("colorGreen");
+          else elementValue.classList.add("colorRed");
+        }
+        elementValue.textContent = mockResp[responseProps[index]];
+        resultsDiv.appendChild(elementLabel);
+        resultsDiv.appendChild(elementValue);
+      }
+    }
+    const resultsParagraph = document.createElement("p");
+    resultsParagraph.setAttribute("id", "resultsText");
+    resultsParagraph.className = "dataCell_text";
+    resultsParagraph.textContent = mockResp["text"];
+    resultsDiv.appendChild(resultsParagraph);
+  } else {
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error";
+    errorDiv.textContent = "Please enter a valid URL";
+    resultsDiv.appendChild(errorDiv);
+  }
 }
 
 export { handleSubmit };

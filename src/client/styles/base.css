@@ -46,3 +46,11 @@ section {
 #resultsText {
   padding: 15px;
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
+  padding-left: 40px;
+  padding-top: 15px;
+}

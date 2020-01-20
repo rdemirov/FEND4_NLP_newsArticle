@@ -3,7 +3,7 @@ import "./styles/base.css";
 import "./styles/header.css";
 import "./styles/form.css";
 import "./styles/footer.css";
-import { checkForName } from "./js/nameChecker";
+import { checkUrl } from "./js/helpers";
 import { handleSubmit } from "./js/formHandler";
 
-export { checkForName, handleSubmit };
+export { checkUrl, handleSubmit };

@@ -40,7 +40,7 @@ module.exports = {
       protectWebpackAssets: false
     }),
     new webpack.DefinePlugin({
-      app_port: dotenv.parsed.APP_PORT
+      app_port: dotenv.parsed.APP_PORT || 8000
     })
   ]
 };
